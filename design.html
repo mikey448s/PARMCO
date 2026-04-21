@@ -3,225 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PARMCO // DEPLOYMENT PROTOCOL</title>
+    <title>PARMCO // ARCHITECT'S LEDGER</title>
     <style>
         :root {
-            --bg-base: #050608;
-            --bg-panel: #0d1117;
-            --border-primary: #30363d;
-            --accent-green: #2ea043;
-            --accent-red: #da3633;
-            --accent-blue: #58a6ff;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
+            --bg-dark: #0a0a08;
+            --gold: #ffb000;
+            --gold-dim: rgba(255, 176, 0, 0.2);
+            --text-main: #e8e6e3;
+            --text-muted: #8c887d;
+            --cyan: #00e5ff;
+            --red: #ff003c;
         }
 
         body {
-            background-color: var(--bg-base);
+            background-color: var(--bg-dark);
             color: var(--text-main);
-            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-            line-height: 1.6;
+            font-family: 'Courier New', Courier, monospace;
             margin: 0;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: var(--bg-panel);
-            border: 1px solid var(--border-primary);
-            box-shadow: 0 0 40px rgba(0,0,0,0.8);
+            padding: 40px;
+            background-image: 
+                radial-gradient(circle at 50% 0%, #1a1710 0%, transparent 50%),
+                linear-gradient(0deg, rgba(255, 176, 0, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 4px;
         }
 
         .header {
-            border-bottom: 1px solid var(--border-primary);
-            padding: 30px;
-            background: linear-gradient(180deg, rgba(46,160,67,0.1) 0%, transparent 100%);
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 20px;
+            position: relative;
         }
 
         .header h1 {
-            color: var(--accent-green);
+            color: var(--gold);
             margin: 0 0 10px 0;
-            font-size: 2rem;
+            font-size: 2.5rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--gold-dim);
         }
 
-        .header p {
-            color: var(--text-muted);
-            margin: 0;
+        .meta-data {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
             font-size: 0.9rem;
+            color: var(--text-muted);
         }
 
-        .section {
-            padding: 30px;
-            border-bottom: 1px solid var(--border-primary);
-        }
+        .meta-data span { color: var(--gold); }
 
-        h2 {
-            color: var(--accent-blue);
-            font-size: 1.4rem;
-            margin-top: 0;
-            border-left: 4px solid var(--accent-blue);
-            padding-left: 15px;
-        }
-
-        h3 {
-            color: #fff;
-            font-size: 1.1rem;
-            margin-top: 25px;
-        }
-
-        .lesson-box {
-            background: rgba(218, 54, 51, 0.05);
-            border: 1px solid var(--accent-red);
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-
-        .lesson-box.success {
-            background: rgba(46, 160, 67, 0.05);
-            border: 1px solid var(--accent-green);
-        }
-
-        .lesson-header {
+        /* Pulsing Rec Indicator */
+        .rec-indicator {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            color: var(--red);
             font-weight: bold;
-            margin-bottom: 10px;
             display: flex;
             align-items: center;
+            gap: 8px;
+        }
+        .rec-dot {
+            width: 10px; height: 10px;
+            background-color: var(--red);
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 0, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 60, 0); }
         }
 
-        .lesson-header.fail { color: var(--accent-red); }
-        .lesson-header.resolve { color: var(--accent-green); }
+        /* Timeline Layout */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
 
-        code {
-            background: rgba(110, 118, 129, 0.1);
-            padding: 2px 6px;
+        /* The center line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0; bottom: 0; left: 20px;
+            width: 2px;
+            background: var(--gold-dim);
+        }
+
+        .log-entry {
+            position: relative;
+            margin-bottom: 40px;
+            padding-left: 60px;
+        }
+
+        /* The timeline node */
+        .log-entry::before {
+            content: '';
+            position: absolute;
+            left: 15px; top: 0;
+            width: 12px; height: 12px;
+            background: var(--bg-dark);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--gold);
+            z-index: 2;
+        }
+
+        .log-card {
+            background: #12110e;
+            border: 1px solid #332f26;
+            padding: 25px;
             border-radius: 4px;
-            color: var(--accent-blue);
-            font-size: 0.9em;
+            transition: all 0.3s ease;
         }
 
-        pre {
-            background: #010409;
-            border: 1px solid var(--border-primary);
+        .log-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 5px 20px var(--gold-dim);
+            transform: translateX(5px);
+        }
+
+        .log-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px dashed #332f26;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .log-id {
+            font-size: 1.2rem;
+            color: var(--gold);
+            font-weight: bold;
+        }
+
+        .log-date { color: var(--text-muted); }
+
+        .log-status {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            background: var(--gold-dim);
+            color: var(--gold);
+            border: 1px solid var(--gold);
+            text-transform: uppercase;
+        }
+        
+        .log-status.resolved { color: var(--cyan); border-color: var(--cyan); background: rgba(0, 229, 255, 0.1); }
+
+        .log-grid {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 15px;
+        }
+
+        .log-label {
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .log-content { color: var(--text-main); line-height: 1.5; }
+
+        .critical-warning {
+            margin-top: 20px;
             padding: 15px;
-            overflow-x: auto;
-            border-radius: 4px;
-            color: #e6edf3;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            text-align: left;
-            padding: 12px;
-            border-bottom: 1px solid var(--border-primary);
-        }
-
-        th { color: var(--text-muted); font-weight: normal; }
-
-        .file-link {
-            display: inline-block;
-            background: var(--border-primary);
-            color: #fff;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 4px;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            transition: background 0.2s;
-        }
-
-        .file-link:hover {
-            background: var(--accent-blue);
+            background: rgba(255, 0, 60, 0.05);
+            border-left: 3px solid var(--red);
+            color: #ff6b8b;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
     <div class="header">
-        <h1>Deployment Protocol: PARMCO</h1>
-        <p>DOCUMENT CLASSIFICATION: UNRESTRICTED // TECHNICAL INTEGRATION GUIDE</p>
-    </div>
-
-    <div class="section">
-        <h2>1.0 Hardware Topography & Assembly</h2>
-        <p>The physical layer of the PARMCO system requires strict adherence to logic-level routing. The Raspberry Pi 4B interacts with high-current 12V DC systems; proper optical isolation is mandatory.</p>
-        
-        <div class="lesson-box">
-            <div class="lesson-header fail">FAILURE CASE: PiHat 1.8V Logic Starvation</div>
-            <p><strong>Observation:</strong> The breakout board stepped all RPi4B GPIO pins down to 1.7V. This was insufficient to drive the 4N25 optocoupler's internal LED (forward voltage ~1.2V, but required ~10mA of current), resulting in a failure to trigger the MOSFET.</p>
-            <div class="lesson-header resolve">RESOLUTION: 2N3904 Current Sink</div>
-            <p><strong>Implementation:</strong> The 4N25 anode was re-routed directly to the Pi's continuous 3.3V power rail via a 100Ω resistor. A 2N3904 NPN transistor was placed between the 4N25 cathode and ground. GPIO 17 now drives the base of the NPN. The 1.7V logic easily overcomes the NPN's 0.7V Vbe threshold, snapping the switch closed and sinking the required current.</p>
-        </div>
-
-        <div class="lesson-box">
-            <div class="lesson-header fail">FAILURE CASE: MOSFET Gate Sub-Saturation</div>
-            <p><strong>Observation:</strong> The motor failed to spin. Amperage draw at the power supply measured 5mA. The initial 1KΩ pull-down resistor on the IRFZ34N gate was drawing too much current, causing the 4N25 output to collapse to ~3V (below the IRFZ34N enhancement threshold).</p>
-            <div class="lesson-header resolve">RESOLUTION: Impedance Adjustment</div>
-            <p><strong>Implementation:</strong> Replaced the 1KΩ gate pull-down with a <strong>100KΩ</strong> resistor. Gate voltage successfully rose to ~11.5V, achieving full MOSFET saturation.</p>
-        </div>
-
-        <h3>Critical Pin Assignments</h3>
-        <table>
-            <tr><th>BCM GPIO</th><th>Component</th><th>Sub-Function</th></tr>
-            <tr><td><code>GPIO 17</code></td><td>2N3904 Base</td><td>Master Power / Hardware E-STOP Enable</td></tr>
-            <tr><td><code>GPIO 23</code></td><td>L293D IN1</td><td>Directional Control (Clockwise)</td></tr>
-            <tr><td><code>GPIO 24</code></td><td>L293D IN2</td><td>Directional Control (Counter-Clockwise)</td></tr>
-            <tr><td><code>GPIO 25</code></td><td>L293D ENA</td><td>Hardware PWM (Speed Control @ 50Hz)</td></tr>
-            <tr><td><code>GPIO 26</code></td><td>HW-201 OUT</td><td>IR Sensor Interrupt / RPM Feedback</td></tr>
-        </table>
-    </div>
-
-    <div class="section">
-        <h2>2.0 RPi4B C-Core Execution Environment</h2>
-        <p>The system daemon relies on low-level hardware memory access. Standard user privileges are insufficient.</p>
-
-        <div class="lesson-box success">
-            <div class="lesson-header resolve">CRITICAL OPTIMIZATION: Glitch Filter Removal</div>
-            <p><strong>Observation:</strong> At speeds exceeding 10% duty cycle, the `pigpio` hardware glitch filter (<code>gpioGlitchFilter</code>) classified the rapid pulses of the physical fan blades as electromagnetic noise, skipping critical RPM data.</p>
-            <p><strong>Implementation:</strong> The hardware filter was disabled. A software-based state-tracking debounce was implemented within the `ir_sensor_callback` ensuring microsecond resolution without bouncing: <code>if (tick - last_tick > 2000)</code>.</p>
-        </div>
-
-        <h3>Compilation Directives</h3>
-        <p>Ensure the `pigpio` and `libbluetooth-dev` dependencies are installed via <code>apt</code>. Compile the core using the following flags to link the necessary math, realtime, and bluetooth libraries:</p>
-        <pre><code>gcc -o parmco_server main.c -lpigpio -lbluetooth -lrt -pthread -lm</code></pre>
-        
-        <p>To execute, the `pigpiod` daemon must be running, and the server must be launched as root:</p>
-        <pre><code>sudo pigpiod
-sudo ./parmco_server</code></pre>
-    </div>
-
-    <div class="section">
-        <h2>3.0 Android Mobile Command Client</h2>
-        <p>The remote interface is developed in Kotlin utilizing Jetpack Compose for declarative UI rendering and Coroutines for background socket telemetry listening.</p>
-
-        <div class="lesson-box">
-            <div class="lesson-header fail">FAILURE CASE: Bluetooth Service Discovery Rejection</div>
-            <p><strong>Observation:</strong> The standard Android implementation utilizing <code>device.createRfcommSocketToServiceRecord(UUID)</code> resulted in connection timeouts. The Linux BlueZ stack on the RPi4B rejected the SPP inquiry.</p>
-            <div class="lesson-header resolve">RESOLUTION: Reflection-Based Port Hijacking</div>
-            <p><strong>Implementation:</strong> The standard API was bypassed utilizing Java reflection. The application forces an insecure RFCOMM connection directly onto Port 1, matching the hardcoded port of the C-server.</p>
-            <pre><code>val method = device.javaClass.getMethod("createRfcommSocket", Int::class.javaPrimitiveType)
-val socket = method.invoke(device, 1) as BluetoothSocket</code></pre>
+        <div class="rec-indicator"><div class="rec-dot"></div> REC</div>
+        <h1>THE ARCHITECT'S LEDGER</h1>
+        <div class="meta-data">
+            <div>PROJECT: <span>PARMCO (Motor Control Core)</span></div>
+            <div>STATUS: <span>CONFIDENTIAL // ARCHITECT EYES ONLY</span></div>
+            <div>AUTHOR: <span>GROUP 1 ENGINEERING</span></div>
+            <div>LAST UPDATE: <span>2026-04-21</span></div>
         </div>
     </div>
 
-    <div class="section">
-        <h2>4.0 Source Code Indices</h2>
-        <p>Access the raw source code and schematic files below for deployment.</p>
-        
-        <a href="#" class="file-link">📄 main.c (RPi Server Core)</a>
-        <a href="#" class="file-link">📄 MainActivity.kt (Android Client)</a>
-        <a href="#" class="file-link">📐 parmco_rev_i_schematic.pdf (Netlist)</a>
+    <div class="timeline">
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 005 // SOFTWARE: RPM SIGNAL DELETION</div>
+                    <div class="log-date">2026-04-10</div>
+                    <div class="log-status resolved">RESOLVED [SERVER V1.2]</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">SYMPTOM</div>
+                    <div class="log-content">RPM feedback functional at low motor speeds, but abruptly failed as speed increased >10% duty cycle. Sensor read 0 RPM despite physical blade rotation.</div>
+                    
+                    <div class="log-label">ANALYSIS</div>
+                    <div class="log-content">The C program utilized an aggressive <code>pigpio</code> hardware glitch filter set to 1ms. At higher speeds, fan blades passed the sensor faster than 1ms. The Pi correctly classified valid blade-passes as high-frequency noise and deleted the data.</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">Disabled the hardware glitch filter entirely. Implemented a sophisticated C-Core State Debounce directly in the interrupt callback function: <code>if (tick - last_tick > 2000)</code>.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 004 // SOFTWARE: ANDROID BLUETOOTH REJECTION</div>
+                    <div class="log-date">2026-04-01</div>
+                    <div class="log-status resolved">RESOLVED [CLIENT V1.1]</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">SYMPTOM</div>
+                    <div class="log-content">Android App failed to establish an RFCOMM socket connection with the RPi4B. The connection timed out on UUID service discovery.</div>
+                    
+                    <div class="log-label">ANALYSIS</div>
+                    <div class="log-content">The Linux BlueZ stack on the RPi4B was failing to correctly advertise the Serial Port Profile (SPP) UUID to the Android SDP inquiry.</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">PROTOCOL HIJACK. Kotlin code was rewritten to utilize Java Reflection, forcefully instantiating an insecure socket directly onto hardcoded RFCOMM Port 1.</div>
+                </div>
+                <div class="critical-warning">
+                    ⚠️ WARNING 004: This bypass may fail on newer Android OS versions with stricter reflection restrictions or against BlueZ stacks running customized security policies.
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 003 // HARDWARE: MOSFET GATE UNDER-SATURATION</div>
+                    <div class="log-date">2026-03-22</div>
+                    <div class="log-status resolved">RESOLVED [REV G]</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">SYMPTOM</div>
+                    <div class="log-content">Keysight bench power supply indicated only a 5mA draw during the 'enable' phase. Motor failed to spin under load.</div>
+                    
+                    <div class="log-label">ANALYSIS</div>
+                    <div class="log-content">The 5mA draw indicated the 12V rail was not reaching the IRFZ34N gate. The initial 1KΩ pull-down resistor was drawing excessive current, collapsing the 4N25 phototransistor output to ~3V.</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">CRITICAL IMPEDANCE CHANGE. Replaced the 1KΩ gate pull-down with a 100KΩ resistor. Phototransistor output successfully reached ~11.5V, achieving full MOSFET saturation.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 002 // HARDWARE: LOGIC LEVEL STARVATION</div>
+                    <div class="log-date">2026-03-15</div>
+                    <div class="log-status resolved">RESOLVED [REV G]</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">SYMPTOM</div>
+                    <div class="log-content">Motor failed to actuate when GPIO 17 was commanded HIGH. Probing revealed the PiHat reduced GPIO logic levels from 3.3V to ~1.7V.</div>
+                    
+                    <div class="log-label">ANALYSIS</div>
+                    <div class="log-content">A 1.7V signal is insufficient to consistently drive the LED forward voltage (Vf) inside the 4N25 optocoupler while meeting current requirements (~10mA).</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">Implemented a 2N3904 NPN transistor as a current-sinking switch. The weak 1.7V GPIO signal easily saturates the NPN, closing the current path for the 4N25 LED.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 001 // CONCEPTUAL: DRIVER TOPOLOGY PIVOT</div>
+                    <div class="log-date">2026-03-01</div>
+                    <div class="log-status">SUPERSEDED</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">PROBLEM</div>
+                    <div class="log-content">Initial conceptual schematic utilized an L298N H-Bridge module. AI review flagged a violation: the L298N uses internal Bipolar Darlington transistors.</div>
+                    
+                    <div class="log-label">CONSTRAINT</div>
+                    <div class="log-content">Project Specifications explicitly require a MOSFET driver topology for efficiency.</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">Immediate pivot from L298N integrated circuit to a discrete H-Bridge design utilizing N-Channel Power MOSFETs (IRFZ34N).</div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
 
 </body>
 </html>

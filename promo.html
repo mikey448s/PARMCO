@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARMCO // SPECIFICATIONS</title>
+    <style>
+        :root {
+            --bg-color: #090a0f;
+            --cyan: #00e5ff;
+            --pink: #ff0055;
+            --text-main: #e0e2eb;
+            --text-dim: #6b7280;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 40px;
+            overflow-x: hidden;
+        }
+
+        /* Global Scanline Overlay */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            border-bottom: 1px solid #333;
+            padding-bottom: 40px;
+        }
+
+        .glitch-title {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 0;
+            color: #fff;
+            text-shadow: 2px 2px 0 var(--pink), -2px -2px 0 var(--cyan);
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--cyan);
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            margin-top: 10px;
+        }
+
+        .warning-banner {
+            background: rgba(255, 0, 85, 0.1);
+            border-left: 4px solid var(--pink);
+            padding: 15px;
+            margin: 0 auto 40px auto;
+            max-width: 800px;
+            color: var(--pink);
+            font-weight: bold;
+        }
+
+        /* CSS Grid for Tech Specs */
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .spec-card {
+            background: #11121a;
+            border: 1px solid #222;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .spec-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .spec-card::before {
+            content: ">>";
+            color: var(--cyan);
+            position: absolute;
+            top: 30px;
+            left: -20px;
+            opacity: 0;
+            transition: opacity 0.3s ease, left 0.3s ease;
+        }
+
+        .spec-card:hover::before {
+            opacity: 1;
+            left: 10px;
+        }
+
+        h3 {
+            color: var(--cyan);
+            margin-top: 0;
+            font-size: 1.5rem;
+            border-bottom: 1px dashed #333;
+            padding-bottom: 10px;
+        }
+
+        .ai-accent h3 { color: var(--pink); }
+        .ai-accent:hover { border-color: var(--pink); box-shadow: 0 0 20px rgba(255, 0, 85, 0.1); }
+        .ai-accent:hover::before { color: var(--pink); }
+
+        p { line-height: 1.6; color: #a0a5b5; font-size: 0.95rem; }
+        
+        .code-snippet {
+            display: block;
+            background: #050508;
+            padding: 15px;
+            border-left: 2px solid var(--text-dim);
+            color: var(--cyan);
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+
+        .footer-cta {
+            text-align: center;
+            margin-top: 80px;
+            padding: 40px;
+        }
+
+        .deploy-btn {
+            background: transparent;
+            color: var(--cyan);
+            border: 2px solid var(--cyan);
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-family: inherit;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: all 0.2s;
+        }
+
+        .deploy-btn:hover {
+            background: var(--cyan);
+            color: #000;
+            box-shadow: 0 0 30px var(--cyan);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="glitch-title">PARMCO DOMINATION MATRIX</h1>
+        <div class="subtitle">CYBER-PHYSICAL PROPULSION OVERRIDE</div>
+    </header>
+
+    <div class="warning-banner">
+        [ SYSTEM ADVISORY ] Linux is not a real-time operating system. Standard OS-level PWM will result in micro-stutters, timing drift, and failure. PARMCO ignores the kernel entirely.
+    </div>
+
+    <div class="spec-grid">
+
+        <div class="spec-card">
+            <h3>01 // KERNEL BYPASS [pigpio]</h3>
+            <p>We do not ask the Linux scheduler for permission to toggle pins. Using the <code>pigpio</code> C library, PARMCO utilizes Direct Memory Access (DMA) to seize control of the Broadcom silicon.</p>
+            <p>The result? A mathematically flawless, hardware-driven 50Hz PWM square wave pumped directly into the L293D H-Bridge. No jitter. No CPU overhead. Total silicon dominance.</p>
+            <span class="code-snippet">gpioSetPWMfrequency(PIN_ENA, 50);<br>gpioPWM(PIN_ENA, hardware_pwm_val);</span>
+        </div>
+
+        <div class="spec-card ai-accent">
+            <h3>02 // DOOR-KICKER TELEMETRY</h3>
+            <p>Modern BlueZ stacks despise legacy Serial Port Profiles (SPP). Standard Android UUID service discovery requests fail silently. We rejected the standard.</p>
+            <p>Our Kotlin mobile interface utilizes Java Reflection to bypass Service Discovery Protocol entirely, forcing a raw, unencrypted byte-stream directly into RFCOMM Channel 1.</p>
+            <span class="code-snippet" style="color: var(--pink)">val method = device.javaClass.getMethod(<br>&nbsp;&nbsp;"createRfcommSocket", Int::class.java<br>);<br>val socket = method.invoke(device, 1)</span>
+        </div>
+
+        <div class="spec-card">
+            <h3>03 // THE 1.8V OVERRIDE</h3>
+            <p>The Raspberry PiHat artificially throttled our GPIO logic to a pathetic 1.8V—insufficient to drive the 4N25 optoisolator. Instead of complaining, we engineered a current-sinking bypass.</p>
+            <p>By routing the 4N25 anode to a constant 3.3V rail and using a 2N3904 NPN transistor on the cathode, a weak 1.7V GPIO signal easily saturates the NPN, snapping the circuit closed and slamming ~11.5V into the IRFZ34N MOSFET gate.</p>
+            <span class="code-snippet">Vbe(sat) = 0.65V <br>V_GPIO = 1.7V (SUFFICIENT TO SWITCH)</span>
+        </div>
+
+        <div class="spec-card ai-accent">
+            <h3>04 // PRE-COGNITIVE FEEDBACK</h3>
+            <p>A pure PID loop must "guess" its way to a target RPM, resulting in wind-up and oscillation. PARMCO is pre-cognitive.</p>
+            <p>When you command "MAINTAIN 1000 RPM", the C-core executes a 5th-order polynomial transfer function to instantly calculate the baseline duty cycle. The HW-201 IR sensor hardware interrupts then feed true-RPM back to the loop, applying a microscopic ±0.5% proportional trim only if the error escapes a 50-RPM deadband.</p>
+            <span class="code-snippet" style="color: var(--pink)">duty = (5.10e-16 * pow(r, 5)) - ... + 1.95;<br>if (abs(error) > 50) trim += (error * 0.005);</span>
+        </div>
+
+    </div>
+
+    <div class="footer-cta">
+        <button class="deploy-btn" onclick="alert('ACCESSING DEPLOYMENT PROTOCOLS...')">INITIATE DEPLOYMENT</button>
+    </div>
+
+</body>
+</html>

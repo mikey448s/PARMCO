@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PARMCO // Co-Pilot Matrix</title>
+    <style>
+        body {
+            background-color: #0a0a0c;
+            color: #00ffcc;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Scanline effect for that retro terminal vibe */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .panel {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            border-right: 2px solid #1f1f2e;
+            position: relative;
+            z-index: 1;
+        }
+
+        .panel:last-child {
+            border-right: none;
+        }
+
+        h2 {
+            text-transform: uppercase;
+            border-bottom: 1px solid #00ffcc;
+            padding-bottom: 10px;
+            margin-top: 0;
+            text-shadow: 0 0 8px #00ffcc;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        /* AI Side Theme */
+        .ai-theme h2 {
+            color: #ff0055;
+            border-bottom: 1px solid #ff0055;
+            text-shadow: 0 0 8px #ff0055;
+        }
+
+        .content-area {
+            flex: 1;
+            background: #121217;
+            border: 1px solid #2a2a35;
+            padding: 20px;
+            overflow-y: auto;
+            color: #d1d1e0;
+            outline: none;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            border-radius: 4px;
+        }
+
+        .content-area:focus {
+            border-color: #00ffcc;
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.1);
+        }
+
+        .ai-theme .content-area:focus {
+            border-color: #ff0055;
+            box-shadow: inset 0 0 15px rgba(255, 0, 85, 0.1);
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0c; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        .panel:first-child ::-webkit-scrollbar-thumb:hover { background: #00ffcc; }
+        .ai-theme ::-webkit-scrollbar-thumb:hover { background: #ff0055; }
+    </style>
+</head>
+<body>
+
+    <div class="panel">
+        <h2>[Left Seat] // Human Operator</h2>
+        <div class="content-area" contenteditable="true">
+> INITIALIZING DATALINK...
+> READY FOR OPERATOR INPUT.
+> [ PASTE YOUR PROMPTS HERE ]
+        </div>
+    </div>
+
+    <div class="panel ai-theme">
+        <h2>[Right Seat] // AI Core (Gemini)</h2>
+        <div class="content-area" contenteditable="true">
+> SYNCING...
+> WAITING FOR TELEMETRY.
+> [ PASTE AI RESPONSES HERE ]
+        </div>
+    </div>
+
+</body>
+</html>

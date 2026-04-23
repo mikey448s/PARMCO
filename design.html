@@ -186,11 +186,51 @@
             <div>PROJECT: <span>PARMCO (Motor Control Core)</span></div>
             <div>STATUS: <span>CONFIDENTIAL // ARCHITECT EYES ONLY</span></div>
             <div>AUTHOR: <span>GROUP 1 ENGINEERING</span></div>
-            <div>LAST UPDATE: <span>2026-04-21</span></div>
+            <div>LAST UPDATE: <span>2026-04-22</span></div>
         </div>
     </div>
 
     <div class="timeline">
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 007 // MATH: KINEMATIC TRANSFER FUNCTION</div>
+                    <div class="log-date">2026-04-20</div>
+                    <div class="log-status resolved">RESOLVED [EMPIRICAL FIT]</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">SYMPTOM</div>
+                    <div class="log-content">The legacy 5th-order polynomial transfer function fed massive inaccuracies to the PID loop. A 9.5% commanded duty cycle (expected 1000 RPM) physically yielded ~2000 RPM on the new motor setup.</div>
+                    
+                    <div class="log-label">ANALYSIS</div>
+                    <div class="log-content">Hardware differences invalidated the previous semester's characterization curve. The C-core Feed-Forward math was entirely misaligned with physical reality.</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">Conducted empirical Hardware-in-the-Loop (HIL) testing. Truncated the complex 5th-order polynomial down to a highly accurate Quadratic Equation: <code>Duty = (0.00000125 * RPM²) - (0.0011 * RPM) + 6.7</code>.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="log-entry">
+            <div class="log-card">
+                <div class="log-header">
+                    <div class="log-id">LOG 006 // PHYSICS: KINETIC STICTION BATTLE</div>
+                    <div class="log-date">2026-04-18</div>
+                    <div class="log-status resolved">RESOLVED [SERVER V1.5]</div>
+                </div>
+                <div class="log-grid">
+                    <div class="log-label">SYMPTOM</div>
+                    <div class="log-content">At low RPM targets, the motor refused to spin until the loop aggressively ramped up power. Once stiction broke, the motor rocketed to 1800 RPM. The PID panicked, dropped power below the kinetic floor, and the motor stalled. Cycle repeated infinitely.</div>
+                    
+                    <div class="log-label">ANALYSIS</div>
+                    <div class="log-content">The physical difference between Static Friction (getting started) and Kinetic Friction (staying spinning) created a dead-zone that the linear PID loop could not resolve without stalling.</div>
+                    
+                    <div class="log-label">DECISION</div>
+                    <div class="log-content">Enforced a hard 6.2% minimum duty cycle "Stall Floor". Additionally, decoupled the PID step size: when operating below 12.5% duty cycle, the error multiplier is artificially reduced by 5x to prevent violent overcorrections.</div>
+                </div>
+            </div>
+        </div>
 
         <div class="log-entry">
             <div class="log-card">
@@ -207,7 +247,7 @@
                     <div class="log-content">The C program utilized an aggressive <code>pigpio</code> hardware glitch filter set to 1ms. At higher speeds, fan blades passed the sensor faster than 1ms. The Pi correctly classified valid blade-passes as high-frequency noise and deleted the data.</div>
                     
                     <div class="log-label">DECISION</div>
-                    <div class="log-content">Disabled the hardware glitch filter entirely. Implemented a sophisticated C-Core State Debounce directly in the interrupt callback function: <code>if (tick - last_tick > 2000)</code>.</div>
+                    <div class="log-content">Disabled the hardware filter entirely. Implemented a sophisticated C-Core State Debounce directly in the interrupt callback function: <code>if (tick - last_tick > 2000)</code>.</div>
                 </div>
             </div>
         </div>

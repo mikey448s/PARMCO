@@ -451,6 +451,43 @@ Would you like to see how to integrate the actual Kotlin Bluetooth Socket code i
             </div>
         </div>
     </div>
+	
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> It still returns -1 after those changes to the execstart and doing a new pairing. 
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Linux Bluetooth (BlueZ) can be incredibly stubborn.
+
+If the Python script is returning -1 on the bind() command, it almost always means Port 1 is already in use or locked by the operating system. When we enabled Compatibility Mode and added SPP globally, the Pi's own background Bluetooth daemon likely hijacked Port 1, locking your Python script out.
+
+Furthermore, standard Python sockets don't automatically broadcast the "UUID" that Android looks for, which causes the Android side to fail even if the Pi manages to bind.
+
+We are going to bypass the operating system's red tape entirely. We will move the Pi to a different port, and we will use a developer "cheat code" (Reflection) in the Android app to connect directly to that specific port, ignoring UUIDs completely.
+
+Here is the bulletproof fix.
+Step 1: Fix the Python Script (Raspberry Pi)
+
+We will change the port from 1 to 3 to avoid the system conflict, and explicitly bind to the Pi's own Bluetooth MAC address (or leave it as "", but port 3 is the key).
+
+    First, kill any frozen Python scripts holding onto the radio:
+    Run this in your Pi terminal: sudo killall python3
+
+    Update your Python script to use Port 3:
+Step 2: Fix the Android App (Kotlin)
+
+Since our Pi is no longer broadcasting standard UUID service records, Android's createRfcommSocketToServiceRecord(uuid) will fail. We will replace that line with Java Reflection to force Android to connect directly to Port 3.
+
+Open your MainActivity.kt and locate the attemptConnection() function. Update the connection block to look exactly like this:
+            </div>
+        </div>
+    </div>
 
     <div class="interaction-row">
         <div class="panel">

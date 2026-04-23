@@ -110,6 +110,105 @@
 <body>
 
     <div class="checkpoint-header">
+        <h1 class="checkpoint-title">CHECKPOINT 01</h1>
+        <div class="checkpoint-date">[2/27/2026 - 03/05/2026]</div>
+    </div>
+
+	<div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 01</h2>
+            <div class="content-area">
+> Generate instructions for "eraser" electrical schematic ai generator that should generate an electrical diagram as per the project instructions
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 01</h2>
+            <div class="content-area">
+> Copy and paste the text below directly into the Eraser AI prompt box to generate the electrical schematic diagram.
+
+Prompt for Eraser:
+Generate an electrical wiring schematic diagram for a Raspberry Pi 4 based motor control system. Include the following components as nodes:
+
+Raspberry Pi 4 (Main Controller)
+
+MOSFET H-Bridge Motor Driver (e.g., TB6612FNG or similar, required for CW/CCW rotation)
+
+DC Motor (Actuator with Propeller)
+
+IR Sensor 1 (Actual RPM Feedback)
+
+IR Sensor 2 (External RPM Match Sensor)
+
+External Motor Power Supply (Battery Pack)
+
+Phone App (Conceptual Bluetooth Node)
+
+Connections to map:
+
+Phone App connects to Raspberry Pi 4 via a bidirectional dashed line labeled "Bluetooth (Commands & RPM Data)".
+
+Raspberry Pi 4 connects to MOSFET H-Bridge Motor Driver using three logic lines: "PWM (Speed Control)", "DIR 1 (GPIO)", and "DIR 2 (GPIO)". Also, connect a common "Ground".
+
+External Motor Power Supply connects to the MOSFET H-Bridge Motor Driver labeled "VMOT (Motor Power)" and "Ground".
+
+MOSFET H-Bridge Motor Driver connects to the DC Motor via two lines labeled "Motor Out A" and "Motor Out B".
+
+Raspberry Pi 4 connects to IR Sensor 1 providing "3.3V Power", "Ground", and receiving "Signal (RPM Interrupt GPIO)".
+
+Raspberry Pi 4 connects to IR Sensor 2 providing "3.3V Power", "Ground", and receiving "Signal (Match Interrupt GPIO)".
+
+Connect all "Ground" lines together to ensure a common ground circuit.
+
+Please format this visually as an engineering block-wiring diagram using standard directional arrows for signal flow.
+            </div>
+        </div>
+    </div>
+
+	<div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> So I'm now using circai that generates a circuit diagram, ket's cut down the description to give it more preliminary circuit that focusses on the motor, something that can be understand and digestable
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Makes total sense. Stripping it down to the core motor control first is the best way to start building and testing this project without getting overwhelmed by the sensor feedback loops.
+
+Here is a simplified, highly focused prompt you can feed directly into circai, along with a digested parts and connections list for your documentation.
+
+Part 1: Instructions for circai (Motor-Focus Prompt)
+
+Copy and paste this directly into circai:
+
+Prompt for circai:
+Generate a preliminary schematic diagram for a Raspberry Pi motor control circuit. Please include the following components and map their connections:
+
+Components:
+
+Raspberry Pi 4 (Logic Controller)
+
+MOSFET H-Bridge Motor Driver (e.g., L298N or TB6612FNG)
+
+Standard DC Motor
+
+Dedicated Motor Power Supply (Battery Pack)
+
+Connections to map:
+
+RP4 to Motor Driver: Connect one RP4 PWM GPIO pin to the driver's "PWM/EN" input. Connect two RP4 standard GPIO pins to the driver's "DIR1/IN1" and "DIR2/IN2" inputs. Connect RP4 Ground to Driver Ground.
+
+Power to Motor Driver: Connect the Battery Pack positive terminal to the driver's "VMOT/VCC" input. Connect the Battery Pack negative terminal to the driver's Ground.
+
+Motor Driver to Motor: Connect the driver's "Motor Out A" and "Motor Out B" to the two terminals on the DC Motor
+            </div>
+        </div>
+    </div>
+	
+    <div class="checkpoint-header">
         <h1 class="checkpoint-title">CHECKPOINT 02</h1>
         <div class="checkpoint-date">[03/05/2026 - 03/19/2026]</div>
     </div>

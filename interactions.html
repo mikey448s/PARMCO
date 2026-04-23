@@ -374,6 +374,83 @@ What changed?
             </div>
         </div>
     </div>
+	
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> Can you more clearly define the steps for setting up bluetooth connection between this phone app and the RPi4B? 
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Moving from a simulated UI to a real, functional hardware connection is where the real fun begins! For a project like sending text commands (e.g., "CW", "1000 RPM") between an Android phone and a Raspberry Pi, the most reliable and straightforward method is to use Bluetooth Classic (RFCOMM), which acts like a wireless serial cable.
+
+Here is the step-by-step roadmap to establish that connection.
+Phase 1: Raspberry Pi 4B Setup (The Server)
+
+The Raspberry Pi will act as the server, listening for incoming connections from your phone.
+
+1. OS-Level Pairing:
+Before writing any code, your phone and the RPi need to know each other.
+
+    On your RPi desktop, click the Bluetooth icon in the top right and make it "Discoverable."
+
+    On your Android phone, go to Bluetooth settings and pair with your Raspberry Pi.
+
+    Crucial Step: Note down the MAC address of your RPi (it looks like XX:XX:XX:XX:XX:XX). You will need this for the Android app.
+
+2. The Python Script:
+You will run a Python script on the RPi to handle the hardware and listen for the app. You don't need external libraries; Python's built-in socket library works perfectly.
+Phase 2: Android App Setup (The Client)
+
+Your Android app needs permission to use Bluetooth and the code to reach out to the RPi's MAC address.
+
+1. Update AndroidManifest.xml:
+You must declare that your app intends to use Bluetooth. Open your AndroidManifest.xml and add these lines above the <application> tag:
+XML
+
+<uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+2. The Connection Logic (Kotlin):
+In your MainActivity.kt, you will replace the simulated connection delay with actual socket code. You will use the standard Serial Port Profile (SPP) UUID, which tells the devices they are communicating via a basic data stream.
+
+    UUID to use: 00001101-0000-1000-8000-00805F9B34FB
+
+    You will use BluetoothAdapter.getDefaultAdapter() to get the phone's Bluetooth radio.
+
+    You will use adapter.getRemoteDevice("YOUR_RPI_MAC_ADDRESS") to target the Pi.
+
+    You will open a BluetoothSocket and call .connect(). (Note: This must be done inside a Coroutine, which we already set up in the UI, because connecting can take a few seconds and will freeze the app if done on the main thread).
+
+3. Sending Data:
+Once connected, the socket gives you an OutputStream. When a user taps the "Manual Mode" or "CW" button, you write a string to that stream:
+Kotlin
+
+socket.outputStream.write("DIR:CW".toByteArray())
+
+Phase 3: The Workflow Loop
+
+Once everything is coded, the daily operation of your system will look like this:
+
+    Boot Up: Power on the RPi4B.
+
+    Start Server: Run the Python script on the RPi. It will hang at "Waiting for connection...".
+
+    Open App: Launch the PARMCO app on your phone.
+
+    Connect: Tap the Bluetooth icon in the app. The app executes the socket connection code using the RPi's MAC address.
+
+    Control: As you press buttons on the app, strings like "RPM:1200" or "ON" are beamed to the RPi. The Python script prints them to the console and translates them into physical GPIO signals for your motor driver.
+
+Would you like to see how to integrate the actual Kotlin Bluetooth Socket code into the attemptConnection() function we built earlier?
+            </div>
+        </div>
+    </div>
 
     <div class="interaction-row">
         <div class="panel">
@@ -398,7 +475,6 @@ The Integrated Python Script
             </div>
         </div>
     </div>
-	TEMPLATE END -->
 
     <div class="interaction-row">
         <div class="panel">

@@ -294,96 +294,156 @@ Generating updated C code now...
         </div>
     </div>
 
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> How to test the circuit is working without using the IR RPM Sensor, can you make a python program to run on the Pi for the GPIO output.
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Testing your subsystems one at a time is exactly how you should approach a complex integration project like PARMCO. Getting the motor spinning and verifying your MOSFET safety switch works before worrying about the IR sensors is smart engineering.
+
+Here is a complete Python test script using the standard RPi.GPIO library. It is custom-written for the exact BCM pinout and active-high logic we established for your breadboard.
+
+*motor_test.py generated*
+            </div>
+        </div>
+    </div>
+
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> Can you please write a java or kotlin native android app? First, we can defined the UI, then we can define the functionality once that's settled. The large goal of the app is to provide a user an interface to control a motor system controlled by a RPi4B over bluetooth.
+
+In the top left of the screen, there should be the swanky Group 1 PARMCO logo. In the top right, there should be a bluetooth status bar (connected or disconnected from RPi4B), with a popup directly below it to connect if not already connected. In a fancy box to attract attention should be the main controls. Above the box should be the mode select (Manual, Automatic Maintain, Automatic Match).
+
+Here's what the contents of the main control box should look like for each mode. For all modes: There should be rotation direction (cw/ccw) and turn on/off.
+
+For Manual mode: there should also be speed control to go faster or slower.
+
+For Automatic Maintain mode: there should be speed control with a specific RPM value. We will later use our IR sensor to ensure that the RPM matches this user-defined value via feedback.
+
+For Automatic Match mode: there should be speed control with a specific RPM value and a constantly updating field for the speed of an external motor system. We will later use both IR sensors to make our internal motor match the speed of the external system, displaying both speeds live to confirm results.
+
+Since we aren't connecting the app to our systems, there doesn't need to be true functionality, but we need some sort of feedback to confirm our buttons work as intended. Beyond the mode select changing the main control box, can we get text popups confirming button actions? The background should also be visually appealing.
+
+If you use any libraries, document your reason for implementing them. Also document all setup steps to install the app to an android phone.
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> This sounds like a fantastic project! Using a Raspberry Pi 4B for motor control gives you a lot of flexibility, and building a native Android app to interface with it via Bluetooth is a great way to make the system user-friendly.
+
+Since we are focusing strictly on the UI and mock functionality for now, Kotlin with Jetpack Compose is the absolute best tool for the job. It is Android's modern declarative UI toolkit, making it incredibly easy to swap out UI components based on state (like switching between your three modes) without dealing with clunky XML files.
+
+Here is the complete code for your MainActivity.kt, followed by the documentation for libraries and installation steps.
+
+The Android App Code (Kotlin + Jetpack Compose)
+This code is designed to be pasted entirely into a single file to get your UI up and running immediately.
+
+*MainActivity.kt generated*
+            </div>
+        </div>
+    </div>
+
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> So we now have this program that connects to the RP4 and the buttons to theoretically control the motor, but those buttons doesn't affect anything currently, update it:
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Getting the Android app to successfully establish an RFCOMM socket with the Raspberry Pi is a massive milestone for your ECSE 4235 capstone! You have the entire communication bridge built.
+
+The reason the buttons aren't doing anything right now is simply because your Python script is just printing the text strings it receives. We need to merge the physical hardware logic we debugged earlier (the NPN safety switch, the L293D direction pins, and the PWM speed control) directly into that Bluetooth while loop.
+
+Here is the fully integrated Python script. It takes the specific string commands your Kotlin app sends (CMD:START, DIR:CW, CMD:FASTER, etc.) and translates them into live GPIO toggles.
+
+The Integrated Python Script
+
+*motor_test.py updated*
+            </div>
+        </div>
+    </div>
+	TEMPLATE END -->
+
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> Okay looks great, now I need to convert all of the python code into C because we can't use python
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Shifting from Python to C is a major upgrade for an embedded systems project. C will give you much closer to real-time control over the hardware, which is exactly what you want when you eventually integrate the IR sensor interrupts and PID control loops.
+
+To replicate the Python environment in C, we need two specific libraries:
+
+BlueZ: The official Linux Bluetooth protocol stack.
+
+pigpio: The standard hardware-level GPIO library for Raspberry Pi (it handles PWM much more reliably than older libraries like wiringPi).
+
+Here is exactly how to translate your Python Bluetooth and Motor logic into a high-performance C program.
+
+1. Install the Required Libraries
+
+Before writing the code, you need to install the C development headers for Bluetooth and the GPIO library on your Raspberry Pi. Run this in your Pi's terminal:
+
+Bash
+sudo apt-get update
+sudo apt-get install libbluetooth-dev pigpio
+				
+2. The C Source Code (motor_server.c)
+
+Create a new file named motor_server.c on your Raspberry Pi and paste the following code. It maintains the exact same logic, pinouts, and string-parsing behavior as the Python script.
+
+*motor_server.c generated*
+            </div>
+        </div>
+    </div>
+	TEMPLATE END -->
 	
-		<!-- CP 1 TEMPLATE
     <div class="interaction-row">
         <div class="panel">
             <h2>[Left Seat] // Prompt 02</h2>
             <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
+> Now make a program that does it with keyboard commands instead of using bluetooth, this is a requirement for the checkpoint. There should be direction control, speed, and on/off control
             </div>
         </div>
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 02</h2>
             <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
+> To hit this checkpoint, we need to solve a specific quirk of the C programming language on Linux.
+
+Normally, when you use scanf or getchar in C, the program pauses and waits for you to press "Enter" before it actually reads what you typed. For a motor controller, that is unacceptable—you need the motor to speed up the millisecond you tap a key, without hitting Enter.
+
+To achieve this, we have to interact directly with the Linux terminal's underlying configuration (using the <termios.h> library) to disable "canonical mode." This gives us a raw, real-time feed of your keystrokes.
+
+Here is the complete, standalone C program for keyboard control.
+
+The C Code (motor_keyboard.c)
+
+Create a new file called motor_keyboard.c and paste this in:
+
+*motor_keyboard.c genearted*
             </div>
         </div>
     </div>
-	TEMPLATE END -->
-
-		<!-- CP 1 TEMPLATE
-    <div class="interaction-row">
-        <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
-            <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
-            </div>
-        </div>
-
-        <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
-            <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
-            </div>
-        </div>
-    </div>
-	TEMPLATE END -->
-
-		<!-- CP 1 TEMPLATE
-    <div class="interaction-row">
-        <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
-            <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
-            </div>
-        </div>
-
-        <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
-            <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
-            </div>
-        </div>
-    </div>
-	TEMPLATE END -->
-
-		<!-- CP 1 TEMPLATE
-    <div class="interaction-row">
-        <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
-            <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
-            </div>
-        </div>
-
-        <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
-            <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
-            </div>
-        </div>
-    </div>
-	TEMPLATE END -->
-	
-	<!-- CP 1 TEMPLATE
-    <div class="interaction-row">
-        <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
-            <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
-            </div>
-        </div>
-
-        <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
-            <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
-            </div>
-        </div>
-    </div>
-	TEMPLATE END -->
     
     <div class="checkpoint-header">
         <h1 class="checkpoint-title">CHECKPOINT 03</h1>

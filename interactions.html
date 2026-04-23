@@ -121,14 +121,14 @@
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 01</h2>
             <div class="content-area">
 > CLAUDE: Read the following project description and give me a detailed guide on the step-by-step process we should take to design a motor schematic.
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 01</h2>
             <div class="content-area">
 > This is the "docs-heavy" deliverable and a good place to start because it informs your hardware setup for everything else.
 Steps with AI:
@@ -177,14 +177,14 @@ Again — the MOSFET warning: Your project spec requires a MOSFET driver. The L2
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 03</h2>
             <div class="content-area">
 > Generate a professional engineering circuit diagram from this netlist: (Claude netlist)
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 03</h2>
             <div class="content-area">
 Here is the professional schematic diagram generated from your KiCad netlist.
 
@@ -203,14 +203,14 @@ Dual IR RPM Sensors (U_SENS1, U_SENS2): Powered by 3.3V from the Pi for speed se
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 04</h2>
             <div class="content-area">
 > Using the provided netlist, explain how the breadboard is wired.
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 04</h2>
             <div class="content-area">
 > Let’s get this PARMCO prototype wired up. When building a mixed-voltage system (12V, 5V, 3.3V) for an ECSE 4235 project, breadboard organization is everything. One misplaced 12V jumper will instantly fry your Raspberry Pi 4.
 Here is a step-by-step, logical breakdown to map your netlist to a physical breadboard.
@@ -276,7 +276,7 @@ Final check: Before you plug in the Pi or the 12V supply, take a multimeter and 
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 01</h2>
+            <h2>[Left Seat] // Prompt 05</h2>
             <div class="content-area">
 > We need to switch the motor driver. The L298N is obsolete for this application.
 Can you rewrite the C-core to handle a discrete IRFZ34N MOSFET topology?
@@ -284,7 +284,7 @@ Can you rewrite the C-core to handle a discrete IRFZ34N MOSFET topology?
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 01</h2>
+            <h2>[Right Seat] // Response 05</h2>
             <div class="content-area">
 > SYNCING...
 Understood. The L298N's Darlington pair incurs too much voltage drop.
@@ -296,14 +296,14 @@ Generating updated C code now...
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 06</h2>
             <div class="content-area">
 > How to test the circuit is working without using the IR RPM Sensor, can you make a python program to run on the Pi for the GPIO output.
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 06</h2>
             <div class="content-area">
 > Testing your subsystems one at a time is exactly how you should approach a complex integration project like PARMCO. Getting the motor spinning and verifying your MOSFET safety switch works before worrying about the IR sensors is smart engineering.
 
@@ -316,7 +316,7 @@ Here is a complete Python test script using the standard RPi.GPIO library. It is
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 07</h2>
             <div class="content-area">
 > Can you please write a java or kotlin native android app? First, we can defined the UI, then we can define the functionality once that's settled. The large goal of the app is to provide a user an interface to control a motor system controlled by a RPi4B over bluetooth.
 
@@ -337,7 +337,7 @@ If you use any libraries, document your reason for implementing them. Also docum
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 07</h2>
             <div class="content-area">
 > This sounds like a fantastic project! Using a Raspberry Pi 4B for motor control gives you a lot of flexibility, and building a native Android app to interface with it via Bluetooth is a great way to make the system user-friendly.
 
@@ -355,14 +355,14 @@ This code is designed to be pasted entirely into a single file to get your UI up
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 08</h2>
             <div class="content-area">
 > So we now have this program that connects to the RP4 and the buttons to theoretically control the motor, but those buttons doesn't affect anything currently, update it:
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 08</h2>
             <div class="content-area">
 > Getting the Android app to successfully establish an RFCOMM socket with the Raspberry Pi is a massive milestone for your ECSE 4235 capstone! You have the entire communication bridge built.
 
@@ -380,14 +380,14 @@ The Integrated Python Script
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 09</h2>
             <div class="content-area">
 > Okay looks great, now I need to convert all of the python code into C because we can't use python
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 09</h2>
             <div class="content-area">
 > Shifting from Python to C is a major upgrade for an embedded systems project. C will give you much closer to real-time control over the hardware, which is exactly what you want when you eventually integrate the IR sensor interrupts and PID control loops.
 
@@ -419,14 +419,14 @@ Create a new file named motor_server.c on your Raspberry Pi and paste the follow
 	
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 10</h2>
             <div class="content-area">
 > Now make a program that does it with keyboard commands instead of using bluetooth, this is a requirement for the checkpoint. There should be direction control, speed, and on/off control
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 10</h2>
             <div class="content-area">
 > To hit this checkpoint, we need to solve a specific quirk of the C programming language on Linux.
 

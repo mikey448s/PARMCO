@@ -267,7 +267,7 @@ Final check: Before you plug in the Pi or the 12V supply, take a multimeter and 
             </div>
         </div>
     </div>
-	TEMPLATE END -->
+
 
     <div class="interaction-row">
         <div class="panel">
@@ -550,7 +550,6 @@ Create a new file named motor_server.c on your Raspberry Pi and paste the follow
             </div>
         </div>
     </div>
-	TEMPLATE END -->
 	
     <div class="interaction-row">
         <div class="panel">
@@ -725,6 +724,76 @@ To fix this, I have removed the gpioGlitchFilter and replaced it with a manual s
     <div class="checkpoint-header">
         <h1 class="checkpoint-title">CHECKPOINT 04</h1>
         <div class="checkpoint-date">[04/17/2026 - 04/23/2026]</div>
+    </div>
+	
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> Can you update the Kotlin program to print out something like "Lower Limit Reached... [650RPM]" and provide 2 new buttons for "jumpy mode" where it truly tries to match the RPM of the secondary motor despite it not being consistent at it, and then "reliable mode" that just sticks to the lower limit duty cycle (6.2%) no matter what the RPM is set to (when below the lower limit of about 650RPM). 
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Here is the updated Kotlin code. I added a new state variable (matchBehavior) to toggle between your two new modes and integrated the warning text directly into the UI.
+What Changed:
+
+    State Management: Added var matchBehavior by remember { mutableStateOf("Reliable") } to track the sub-mode within "Automatic Match".
+
+    Lower Limit Warning: In both Automatic Maintain and Automatic Match modes, if the target (or external) RPM falls below 650, a bold red warning Lower Limit Reached... [650RPM] dynamically renders on the screen.
+
+    Jumpy vs. Reliable Controls: Added a toggle row in the Automatic Match UI.
+
+        Selecting "Jumpy Mode" sends MATCH_MODE:JUMPY to the Pi.
+
+        Selecting "Reliable Mode" sends MATCH_MODE:RELIABLE to the Pi.
+
+        Note on Hardware Logic: This UI assumes your C-server will intercept these commands and handle the physical 6.2% minimum duty cycle clamping when in "Reliable" mode.
+
+Here is the complete, ready-to-deploy MainActivity.kt:
+            </div>
+        </div>
+    </div>
+	
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> For our over the top README, let's up the quality a lot. Why don't we keep it a text file, but we embed html files into it somehow so it renders a GUI, but I don't have to buy another domain name. Is it possible to have links to html files in the README for the user to access without having to download them? We need one site for purely Human and AI interactions (left seat right seat essentially) if you can just make spots for each side while I put the text in. Another one as an advertisement making our program looking appetizing, another as an instructional guide for how to set all this up themselves, and the last for our design process and iterations.
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> Taking the README from a static text wall into an interactive, multi-site cyber-matrix is exactly the kind of over-the-top escalation this project deserves.
+
+Here is the reality of how GitHub handles HTML: you cannot directly embed active HTML (like <iframe>, <script>, or complex CSS) inside the README.md itself because GitHub sanitizes it for security.
+
+However, there is a perfect, free, and professional workaround: GitHub Pages. You don't need a domain name, and nobody has to download anything. You simply push your HTML files to a folder in your repository (usually /docs or a gh-pages branch), toggle a setting in your repo, and GitHub automatically hosts them live at a URL like https://[your-username].github.io/[repo-name]/interactions.html.
+
+You can then put massive, glowing hyperlink buttons in your text README that punch out to these live sites.
+The Revised README Structure
+
+We will inject a "DATALINKS" or "TERMINALS" section right below the feature list in the README we drafted earlier. It will look something like this:
+Markdown
+
+## 🌐 PARMCO TERMINALS [LIVE DATALINKS] 🌐
+
+Access the interactive project archives below. [No download required. Direct neural link established.]
+
+* [**TERMINAL 01: The Turing Matrix**](link-to-your-github-pages/interactions.html) -> *Raw Left-Seat/Right-Seat Human-AI Co-Pilot Logs.*
+* [**TERMINAL 02: Propaganda & Specifications**](link-to-your-github-pages/promo.html) -> *Why PARMCO dominates the embedded space.*
+* [**TERMINAL 03: Deployment Protocol**](link-to-your-github-pages/guide.html) -> *Step-by-step reproduction and hardware flashing guide.*
+* [**TERMINAL 04: The Architect's Ledger**](link-to-your-github-pages/design.html) -> *Iterative schematics, failures, and evolution.*
+
+Site 1: The Human/AI Interaction Matrix (Left Seat / Right Seat)
+
+For this first site, I have built a standalone HTML file that acts as a split-screen terminal. It uses CSS Flexbox for a clean side-by-side layout and contenteditable attributes. This means you can open it in a browser, click the boxes, and literally just paste your text into the Left Seat (Human) and Right Seat (AI) spots exactly as you requested.
+            </div>
+        </div>
     </div>
 	
 	<!-- CP 4 TEMPLATE

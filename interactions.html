@@ -118,16 +118,14 @@
         <div class="panel">
             <h2>[Left Seat] // Prompt 02</h2>
             <div class="content-area">
-> CLAUDE: Read the following project description and give me a detailed guide
-> on the step-by-step process we should take to design a motor schematic.
+> CLAUDE: Read the following project description and give me a detailed guide on the step-by-step process we should take to design a motor schematic.
             </div>
         </div>
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 02</h2>
             <div class="content-area">
-> This is the "docs-heavy" deliverable and a good place to start because it informs 
-> your hardware setup for everything else.
+> This is the "docs-heavy" deliverable and a good place to start because it informs your hardware setup for everything else.
 > Steps with AI:
 
 > Prompt AI to add the IR sensor circuit to your existing motor schematic.
@@ -172,23 +170,35 @@
         </div>
     </div>
 
-		<!-- CP 1 TEMPLATE
     <div class="interaction-row">
         <div class="panel">
             <h2>[Left Seat] // Prompt 02</h2>
             <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
+> Generate a professional engineering circuit diagram from this netlist: (netlist)
             </div>
         </div>
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 02</h2>
             <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
+> Here is the professional schematic diagram generated from your KiCad netlist.
+
+The diagram is organized logically into functional blocks:
+
+Raspberry Pi 4 GPIO Header (J1): Showing all control and power connections.
+
+12V Power Input & Bulk Decoupling (J2, C1): The main power source for the motor.
+
+Opto-Isolated Power Enable Switch (U2, Q1): This section uses the 4N25 and IRFZ34N to create the safety shutoff on the L293D's ground path, as specified in your netlist comments.
+
+L293D Motor Driver & DC Motor (U1, M1): Showing the H-Bridge connections and the noise filtering capacitors (C_NODE_A, C_NODE_B).
+
+Dual IR RPM Sensors (U_SENS1, U_SENS2): Powered by 3.3V from the Pi for speed sensing.
+
+> REV F Diagram
             </div>
         </div>
     </div>
-	TEMPLATE END -->
 
 		<!-- CP 1 TEMPLATE
     <div class="interaction-row">

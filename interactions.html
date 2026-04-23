@@ -11,15 +11,13 @@
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             display: flex;
-            flex-direction: column; /* Stacks the rows vertically */
-            /* Removed the 100vh limit so you can scroll infinitely */
+            flex-direction: column;
         }
 
-        /* Scanline effect */
         body::before {
             content: " ";
             display: block;
-            position: fixed; /* Keeps scanlines over the screen even while scrolling */
+            position: fixed;
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 100;
@@ -27,19 +25,18 @@
             pointer-events: none;
         }
 
-        /* This is the new wrapper that holds one Left/Right pair */
         .interaction-row {
             display: flex;
-            min-height: 50vh; /* Each row takes up half the screen height minimum */
-            border-bottom: 2px solid #00ffcc; /* Draws a glowing line between rows */
+            min-height: 50vh;
+            border-bottom: 2px solid #00ffcc;
         }
 
         .panel {
-            flex: 1; /* Makes Left and Right take up exactly 50% width each */
+            flex: 1;
             padding: 20px;
             display: flex;
             flex-direction: column;
-            border-right: 2px solid #1f1f2e; /* Line down the middle */
+            border-right: 2px solid #1f1f2e;
             position: relative;
             z-index: 1;
         }
@@ -58,7 +55,6 @@
             letter-spacing: 2px;
         }
 
-        /* AI Side Theme */
         .ai-theme h2 {
             color: #ff0055;
             border-bottom: 1px solid #ff0055;
@@ -72,23 +68,11 @@
             padding: 20px;
             overflow-y: auto;
             color: #d1d1e0;
-            outline: none;
             white-space: pre-wrap;
             line-height: 1.5;
             border-radius: 4px;
         }
 
-        .content-area:focus {
-            border-color: #00ffcc;
-            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.1);
-        }
-
-        .ai-theme .content-area:focus {
-            border-color: #ff0055;
-            box-shadow: inset 0 0 15px rgba(255, 0, 85, 0.1);
-        }
-
-        /* Scrollbar Styling */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0c; }
         ::-webkit-scrollbar-thumb { background: #333; }
@@ -101,7 +85,7 @@
     <div class="interaction-row">
         <div class="panel">
             <h2>[Left Seat] // Prompt 01</h2>
-            <div class="content-area" contenteditable="true">
+            <div class="content-area">
 > We need to switch the motor driver. The L298N is obsolete for this application.
 > Can you rewrite the C-core to handle a discrete IRFZ34N MOSFET topology?
             </div>
@@ -109,7 +93,7 @@
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 01</h2>
-            <div class="content-area" contenteditable="true">
+            <div class="content-area">
 > SYNCING...
 > Understood. The L298N's Darlington pair incurs too much voltage drop.
 > Re-routing GPIO 25 to directly drive the MOSFET gate via the 4N25 optocoupler. 
@@ -120,14 +104,14 @@
     <div class="interaction-row">
         <div class="panel">
             <h2>[Left Seat] // Prompt 02</h2>
-            <div class="content-area" contenteditable="true">
+            <div class="content-area">
 > PASTE YOUR NEXT PROMPT HERE
             </div>
         </div>
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 02</h2>
-            <div class="content-area" contenteditable="true">
+            <div class="content-area">
 > PASTE MY NEXT RESPONSE HERE
             </div>
         </div>

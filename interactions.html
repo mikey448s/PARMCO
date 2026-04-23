@@ -349,14 +349,14 @@ This code is designed to be pasted entirely into a single file to get your UI up
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 08</h2>
             <div class="content-area">
 > Can we make the controls box a bit higher from the bottom of the window but it still expands upwards when more content dense modes are selected? 
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 08</h2>
             <div class="content-area">
 > That is a very easy adjustment in Jetpack Compose! Because of how Compose calculates layout space, we actually already have the "expands upwards" behavior built-in.
 
@@ -376,14 +376,14 @@ What changed?
 	
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 09</h2>
             <div class="content-area">
 > Can you more clearly define the steps for setting up bluetooth connection between this phone app and the RPi4B? 
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 09</h2>
             <div class="content-area">
 > Moving from a simulated UI to a real, functional hardware connection is where the real fun begins! For a project like sending text commands (e.g., "CW", "1000 RPM") between an Android phone and a Raspberry Pi, the most reliable and straightforward method is to use Bluetooth Classic (RFCOMM), which acts like a wireless serial cable.
 
@@ -453,14 +453,14 @@ Would you like to see how to integrate the actual Kotlin Bluetooth Socket code i
 	
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 10</h2>
             <div class="content-area">
 > It still returns -1 after those changes to the execstart and doing a new pairing. 
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 10</h2>
             <div class="content-area">
 > Linux Bluetooth (BlueZ) can be incredibly stubborn.
 
@@ -490,14 +490,14 @@ Open your MainActivity.kt and locate the attemptConnection() function. Update th
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 08</h2>
+            <h2>[Left Seat] // Prompt 11</h2>
             <div class="content-area">
 > So we now have this program that connects to the RP4 and the buttons to theoretically control the motor, but those buttons doesn't affect anything currently, update it:
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 08</h2>
+            <h2>[Right Seat] // Response 11</h2>
             <div class="content-area">
 > Getting the Android app to successfully establish an RFCOMM socket with the Raspberry Pi is a massive milestone for your ECSE 4235 capstone! You have the entire communication bridge built.
 
@@ -514,14 +514,14 @@ The Integrated Python Script
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 09</h2>
+            <h2>[Left Seat] // Prompt 12</h2>
             <div class="content-area">
 > Okay looks great, now I need to convert all of the python code into C because we can't use python
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 09</h2>
+            <h2>[Right Seat] // Response 12</h2>
             <div class="content-area">
 > Shifting from Python to C is a major upgrade for an embedded systems project. C will give you much closer to real-time control over the hardware, which is exactly what you want when you eventually integrate the IR sensor interrupts and PID control loops.
 
@@ -552,14 +552,14 @@ Create a new file named motor_server.c on your Raspberry Pi and paste the follow
 	
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 10</h2>
+            <h2>[Left Seat] // Prompt 13</h2>
             <div class="content-area">
 > Now make a program that does it with keyboard commands instead of using bluetooth, this is a requirement for the checkpoint. There should be direction control, speed, and on/off control
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 10</h2>
+            <h2>[Right Seat] // Response 13</h2>
             <div class="content-area">
 > To hit this checkpoint, we need to solve a specific quirk of the C programming language on Linux.
 
@@ -585,7 +585,7 @@ Create a new file called motor_keyboard.c and paste this in:
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 01</h2>
             <div class="content-area">
 > Can you generate C code to interface with the HW-201 IR sensor for detecting the speed of a 3-blade fan on Rasperry Pi 4B? With that program reading the true speed of the fan, I want to also update the phone app's Automatic Maintain mode. Use feedback from the IR sensor to control the fan's speed to maintain the speed defined by the user. Do not change the Manual mode or the Automatic Match mode (yet).
 
@@ -594,7 +594,7 @@ This is the C program that runs to control the motor through a MOSFET, H-bridge,
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 01</h2>
             <div class="content-area">
 > That is a fantastic hardware progression! Using the HW-201 IR sensor for feedback transforms this from an "open-loop" guess into a true "closed-loop" control system.
 
@@ -643,14 +643,14 @@ To get this to compile, you will need to open main.c in nano and manually type t
 
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 03</h2>
             <div class="content-area">
 > Remember the IRRPMMotor_finaly.py file that I gave you, can you generate a file that just tests the IR sensor, the transfer funciton it has, and the RPM it is detecting. Currently it was only able to detect RPM at very low power (like 20% speed) and it read around like 2500 RPM. I've attached the report that was used last semester for the IRRPM (with rotary encoder which we're not using now) which shows more accurate or relevant RPM ranging from 700-4000 RPM
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 03</h2>
             <div class="content-area">
 > It is completely understandable why you were seeing ~2500 RPM at 20% power! If we look at the raw data in your report from last semester, a 20% duty cycle produced exactly 2377 RPM. DC motors are highly non-linear; 20% power does not mean 20% speed. That is exactly why the transfer function you derived is so critical—it flattens out that curve so your inputs match reality.
 
@@ -665,14 +665,14 @@ Here is a clean, isolated Python test script. It uses the exact pins from your C
 
 	<div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 04</h2>
             <div class="content-area">
 > Here is some data for the IR sensor currently and how much it's off by, try to modify it so the transfer function fits better:
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 04</h2>
             <div class="content-area">
 > This data is absolute gold! This right here is exactly why we re-characterize hardware.
 
@@ -692,14 +692,14 @@ Here is a visualizer so you can see exactly how this new math maps to the data p
 	
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 05</h2>
             <div class="content-area">
 > It stops reading the RPM even though the python test_ir.py reads it, fix it in C
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 05</h2>
             <div class="content-area">
 > I know exactly why it stopped reading, and it is a fascinating hardware logic trap!
 
@@ -727,14 +727,14 @@ To fix this, I have removed the gpioGlitchFilter and replaced it with a manual s
 	
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 01</h2>
             <div class="content-area">
 > Can you update the Kotlin program to print out something like "Lower Limit Reached... [650RPM]" and provide 2 new buttons for "jumpy mode" where it truly tries to match the RPM of the secondary motor despite it not being consistent at it, and then "reliable mode" that just sticks to the lower limit duty cycle (6.2%) no matter what the RPM is set to (when below the lower limit of about 650RPM). 
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 01</h2>
             <div class="content-area">
 > Here is the updated Kotlin code. I added a new state variable (matchBehavior) to toggle between your two new modes and integrated the warning text directly into the UI.
 What Changed:
@@ -795,23 +795,203 @@ For this first site, I have built a standalone HTML file that acts as a split-sc
         </div>
     </div>
 	
-	<!-- CP 4 TEMPLATE
     <div class="interaction-row">
         <div class="panel">
-            <h2>[Left Seat] // Prompt 02</h2>
+            <h2>[Left Seat] // Prompt 03</h2>
             <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
+> Okay so now we need to implement the final mode: Automatic/Match: the app looks at an input from another propeller (not yours). This is done from a second IR sensor looking at the propeller from another source. The app will attempt to match the speed of the propeller which can change. Warning, both automatic modes require feedback so be careful. You and the AI may want to put some feedback control. We will be using a second IR to read from another source
             </div>
         </div>
 
         <div class="panel ai-theme">
-            <h2>[Right Seat] // Response 02</h2>
+            <h2>[Right Seat] // Response 03</h2>
             <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
+> This is the grand finale! Wiring a second IR sensor to track an external propeller and feeding that live data directly into your internal motor's PID loop is a fantastic application of dynamic control systems.
+
+Because we set up that "Feed-Forward + Trim" algorithm with your characterization polynomial in the last step, implementing the "Automatic Match" mode is incredibly easy.
+
+Instead of the user setting the target_rpm via the app, the Pi will dynamically overwrite target_rpm with whatever the second IR sensor is reading every single second. The exact same feedback loop we just built will then seamlessly push your internal motor to match that moving target!
+
+Hardware Setup
+
+You will need to wire your second HW-201 IR sensor exactly like the first one.
+
+Connect VCC to Pi 3.3V or 5V.
+
+Connect GND to Pi Ground.
+
+Connect OUT to GPIO 27 (I have configured PIN_IR_EXT to 27 in the code).
+
+1. The Final RPi4B C Server (main.c)
+
+I have added the second sensor interrupt, calculated the external RPM, and updated the Bluetooth message to beam both INT_RPM and EXT_RPM simultaneously to your phone.
+
+(Remember to compile with: gcc -o main main.c -lpigpio -lbluetooth -lm)
+				
+
+2. The Final Android Kotlin App (MainActivity.kt)
+
+The app now constantly parses both INT_RPM and EXT_RPM streams from the Bluetooth socket.
+
+Because the "Match" mode is entirely automatic and driven by the second IR sensor, I have removed the text box for "Target RPM" in that specific mode. All you have to do is hit "START MOTOR", and the app will beautifully display the external target next to your motor's internal speed as it chases it down!
             </div>
         </div>
     </div>
-	TEMPLATE END -->
+
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 04</h2>
+            <div class="content-area">
+> How can I update it for testing using a square wave from a function generator
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 04</h2>
+            <div class="content-area">
+> Using a function generator to simulate the IR sensor is a brilliant debugging strategy! In the engineering world, this is called Hardware-in-the-Loop (HIL) testing. It allows you to prove your software logic is flawless without worrying about physical fan blades, lighting conditions, or sensor alignment.
+
+The best part? You do not need to change a single line of your C code. Your HW-201 IR sensor essentially outputs a square wave anyway (it drops to 0V when a blade passes, and pulls up to 3.3V when the gap passes). Your C code is already perfectly designed to read a square wave.
+
+Here is exactly how to set up the test, the math you need to know, and the critical safety warning to avoid frying your Raspberry Pi.
+
+⚠️ CRITICAL SAFETY WARNING ⚠️
+
+Raspberry Pi GPIO pins are strictly 3.3V tolerant. If your function generator outputs a standard 5V TTL signal, or a waveform centered at 0V that swings from -5V to +5V, you will instantly destroy the GPIO pin (and potentially the whole Pi).
+
+Before connecting anything to the Pi, you must configure your function generator:
+
+Waveform: Square Wave.
+
+Amplitude (High Level): Exactly 3.3V (or 3.3Vpp with a +1.65V DC offset, depending on how your generator labels it).
+
+Low Level: 0V (Ground).
+
+Verify this 0V-to-3.3V swing on an oscilloscope before plugging it into the Pi!
+
+The Setup
+
+1. Wiring:
+
+Connect the Ground from the function generator to any Ground pin on the Raspberry Pi. (If they don't share a ground, the signal won't be read).
+
+Connect the Signal Output from the function generator directly to GPIO 26 (for simulating the internal motor) OR GPIO 27 (for simulating the external propeller).
+
+2. The Math (Hz to RPM):
+Your C code calculates RPM assuming a 3-blade propeller. Here is how your function generator's frequency (Hz) translates to the RPM you will see in the app:
+
+Frequency (f) = Pulses per second.
+
+The C code multiplies the pulses per second by 20.
+
+Formula: Displayed RPM = Frequency in Hz * 20
+
+Here is a quick cheat sheet for your testing:
+
+Set generator to 25 Hz -> App reads 500 RPM
+
+Set generator to 50 Hz -> App reads 1000 RPM
+
+Set generator to 100 Hz -> App reads 2000 RPM
+
+Set generator to 200 Hz -> App reads 4000 RPM
+
+The Test Procedure
+
+Start the C Server: Boot up your C program exactly as it is right now (sudo ./main).
+
+Connect the App: Connect your phone via Bluetooth.
+
+Simulate External RPM (Automatic Match):
+
+Connect the function generator to GPIO 27.
+
+Set the function generator to 50 Hz.
+
+Switch the app to Automatic Match.
+
+You should instantly see the "External Target Speed" on your phone lock onto 1000 RPM.
+
+Twist the frequency knob on the function generator up and down; the app should track it perfectly in real-time.
+
+Simulate Internal RPM (Feedback Loop):
+
+Connect the function generator to GPIO 26.
+
+Set the app to Automatic Maintain with a target of 2000 RPM.
+
+Set your function generator to 50 Hz (simulating the motor struggling at 1000 RPM).
+
+You should see the C program terminal print that the fine_tune_adj (trim) is increasing rapidly, trying to apply more power to speed up the "motor."
+
+Turn the function generator up to 100 Hz (simulating the motor reaching 2000 RPM). You should see the trim stabilize and stop climbing!
+
+Note on the Debounce Limit
+
+Your C code currently has a 500 microsecond software debounce. This means if the function generator pushes pulses faster than 1 pulse every 0.5ms, the Pi will filter them out as noise.
+
+1 / 0.0005 seconds = 2000 Hz
+
+2000 Hz * 20 = 40,000 RPM
+
+As long as you keep your function generator below 2000 Hz during testing, your C code will read it flawlessly!
+            </div>
+        </div>
+    </div>
+
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 05</h2>
+            <div class="content-area">
+> Use the same feedback from maintain mode on match mode, it's now reading the external target speed for the RPM but it's not trying to match it. Give me the updated file
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 05</h2>
+            <div class="content-area">
+> You are absolutely right, and I see exactly where I over-engineered it in the last version!
+
+The culprit was that "Smart Reset" feature I added to the MATCH mode logic. I told the Pi: "If the external target changes by more than 50 RPM, instantly wipe the trim memory to 0." Because you are waving your fingers manually, the external_rpm reading is naturally noisy (e.g., 500 RPM one second, 580 RPM the next, 490 RPM the next). Every single time it fluctuated by more than 50, my code was deleting the feedback trim! It was constantly fighting itself, which completely crippled the feedback loop and stopped the motor from adjusting.
+
+I have stripped out that aggressive reset. The MATCH mode now blindly passes the external target into the exact same unbroken feedback loop that MAINTAIN uses.
+
+Here is the fully updated, unfiltered tracking code!
+
+The Updated RPi4B C Server (main.c)
+            </div>
+        </div>
+    </div>
+
+	    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 06</h2>
+            <div class="content-area">
+> So we noticed that when the duty cycle is low that the motor overcorrects by going to high past 0 RPM becuase at lower RPMs the motor doesn't turn on until ~1000, so it shoots past 1000 RPM and goes to look 1800 RPM because it's expecting a big change at 0, but then it decreases that RPM a lot at 1800 RPM and turns the motor off, going back to 0 RPM, which is a constant over correction
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 06</h2>
+            <div class="content-area">
+> This is one of the most classic hardware phenomena in robotics! You have just discovered the battle between Static Friction (Stiction) and Kinetic Friction.
+
+It takes significantly more power to start a motor from a dead stop (overcoming static friction) than it does to keep it spinning. Because your code couldn't start the motor at low PWMs, the feedback loop sat there saying: "Still 0 RPM! Add more power! Add more power!" By the time the power was finally high enough to break the stiction (around 10%), the motor violently kicked on. But because it had so much power, it rocketed to 1800 RPM. The feedback loop saw 1800 RPM, panicked, and subtracted a massive chunk of power (e.g., dropping the duty cycle by 9% instantly). That sudden drop starved the motor, causing it to stall back to 0, and the vicious cycle started all over again.
+
+The 2-Part Fix
+
+To stop this endless yo-yo effect, I have added two specific protections to your control loop:
+
+The Step-Size Clamp (Slew Rate Limiter): The feedback loop is no longer allowed to panic. Even if the motor overshoots to 1800 RPM, the code is strictly limited to changing the duty cycle by a maximum of +/- 2.0% per second. Instead of violently cutting power and stalling the motor, it will gently "walk" the speed down.
+
+The Minimum Running Floor: I added a safety net at 8.0% duty cycle. If the target_rpm is anything above 0, the Pi will never allow the duty cycle to drop below 8.0%. This guarantees that during an overcorrection, the Pi won't accidentally drop the power so low that the motor stalls out.
+
+Here is the updated C Server to smooth out those low-RPM controls!
+
+The Updated RPi4B C Server (main.c)
+            </div>
+        </div>
+    </div>
 	
     </body>
 </html>

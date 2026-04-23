@@ -176,7 +176,8 @@
             <tr><td><code>GPIO 23</code></td><td>L293D IN1</td><td>Directional Control (Clockwise)</td></tr>
             <tr><td><code>GPIO 24</code></td><td>L293D IN2</td><td>Directional Control (Counter-Clockwise)</td></tr>
             <tr><td><code>GPIO 25</code></td><td>L293D ENA</td><td>Hardware PWM (Speed Control @ 50Hz)</td></tr>
-            <tr><td><code>GPIO 26</code></td><td>HW-201 OUT</td><td>IR Sensor Interrupt / RPM Feedback</td></tr>
+            <tr><td><code>GPIO 26</code></td><td>HW-201 OUT 1</td><td>Internal Propeller IR Feedback</td></tr>
+            <tr><td><code>GPIO 27</code></td><td>HW-201 OUT 2</td><td>External Target Propeller IR Feedback (Match Mode)</td></tr>
         </table>
     </div>
 
@@ -188,6 +189,12 @@
             <div class="lesson-header resolve">CRITICAL OPTIMIZATION: Glitch Filter Removal</div>
             <p><strong>Observation:</strong> At speeds exceeding 10% duty cycle, the `pigpio` hardware glitch filter (<code>gpioGlitchFilter</code>) classified the rapid pulses of the physical fan blades as electromagnetic noise, skipping critical RPM data.</p>
             <p><strong>Implementation:</strong> The hardware filter was disabled. A software-based state-tracking debounce was implemented within the `ir_sensor_callback` ensuring microsecond resolution without bouncing: <code>if (tick - last_tick > 2000)</code>.</p>
+        </div>
+
+        <div class="lesson-box success">
+            <div class="lesson-header resolve">CRITICAL OPTIMIZATION: Stiction Floor & Damping</div>
+            <p><strong>Observation:</strong> Static friction required >10% duty cycle to break, rocketing the motor to 1800 RPM. The PID loop panicked and cut power, causing an endless stall-to-rocket feedback loop at low RPMs.</p>
+            <p><strong>Implementation:</strong> Implemented a 6.2% hard stall floor to prevent the motor from ever entirely losing kinetic momentum during an overcorrection, and added a 5x loop dampener when operating below 12.5% duty cycle.</p>
         </div>
 
         <h3>Compilation Directives</h3>

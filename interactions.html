@@ -11,28 +11,35 @@
             font-family: 'Courier New', Courier, monospace;
             margin: 0;
             display: flex;
-            height: 100vh;
-            overflow: hidden;
+            flex-direction: column; /* Stacks the rows vertically */
+            /* Removed the 100vh limit so you can scroll infinitely */
         }
 
-        /* Scanline effect for that retro terminal vibe */
+        /* Scanline effect */
         body::before {
             content: " ";
             display: block;
-            position: absolute;
+            position: fixed; /* Keeps scanlines over the screen even while scrolling */
             top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
+            z-index: 100;
             background-size: 100% 2px, 3px 100%;
             pointer-events: none;
         }
 
+        /* This is the new wrapper that holds one Left/Right pair */
+        .interaction-row {
+            display: flex;
+            min-height: 50vh; /* Each row takes up half the screen height minimum */
+            border-bottom: 2px solid #00ffcc; /* Draws a glowing line between rows */
+        }
+
         .panel {
-            flex: 1;
+            flex: 1; /* Makes Left and Right take up exactly 50% width each */
             padding: 20px;
             display: flex;
             flex-direction: column;
-            border-right: 2px solid #1f1f2e;
+            border-right: 2px solid #1f1f2e; /* Line down the middle */
             position: relative;
             z-index: 1;
         }
@@ -91,23 +98,39 @@
 </head>
 <body>
 
-    <div class="panel">
-        <h2>[Left Seat] // Human Operator</h2>
-        <div class="content-area" contenteditable="true">
-> INITIALIZING DATALINK...
-> READY FOR OPERATOR INPUT.
-> [ PASTE YOUR PROMPTS HERE ]
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 01</h2>
+            <div class="content-area" contenteditable="true">
+> We need to switch the motor driver. The L298N is obsolete for this application.
+> Can you rewrite the C-core to handle a discrete IRFZ34N MOSFET topology?
+            </div>
         </div>
-    </div>
 
-    <div class="panel ai-theme">
-        <h2>[Right Seat] // AI Core (Gemini)</h2>
-        <div class="content-area" contenteditable="true">
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 01</h2>
+            <div class="content-area" contenteditable="true">
 > SYNCING...
-> WAITING FOR TELEMETRY.
-> [ PASTE AI RESPONSES HERE ]
+> Understood. The L298N's Darlington pair incurs too much voltage drop.
+> Re-routing GPIO 25 to directly drive the MOSFET gate via the 4N25 optocoupler. 
+> Generating updated C code now...
+            </div>
         </div>
     </div>
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area" contenteditable="true">
+> PASTE YOUR NEXT PROMPT HERE
+            </div>
+        </div>
 
-</body>
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area" contenteditable="true">
+> PASTE MY NEXT RESPONSE HERE
+            </div>
+        </div>
+    </div>
+    </body>
 </html>

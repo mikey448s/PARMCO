@@ -114,41 +114,63 @@
         <div class="checkpoint-date">[03/05/2026 - 03/19/2026]</div>
     </div>
 
-		<!-- CP 1 TEMPLATE
     <div class="interaction-row">
         <div class="panel">
             <h2>[Left Seat] // Prompt 02</h2>
             <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
+> CLAUDE: Read the following project description and give me a detailed guide
+> on the step-by-step process we should take to design a motor schematic.
             </div>
         </div>
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 02</h2>
             <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
+> This is the "docs-heavy" deliverable and a good place to start because it informs 
+> your hardware setup for everything else.
+> Steps with AI:
+
+> Prompt AI to add the IR sensor circuit to your existing motor schematic.
+> Ask AI to produce: a complete drawn schematic (motor + MOSFET driver + IR sensor).
+> Verify everything. Check pin assignments against datasheets. 
             </div>
         </div>
     </div>
-	TEMPLATE END -->
 
-		<!-- CP 1 TEMPLATE
     <div class="interaction-row">
         <div class="panel">
             <h2>[Left Seat] // Prompt 02</h2>
             <div class="content-area">
-> PASTE YOUR NEXT PROMPT HERE
+> I need the motor schematic as a netlist.
             </div>
         </div>
 
         <div class="panel ai-theme">
             <h2>[Right Seat] // Response 02</h2>
             <div class="content-area">
-> PASTE MY NEXT RESPONSE HERE
+> Here's your KiCad netlist. A quick rundown of what's in it:
+> Components (13 total):
+
+> U1 — L298N module (Channel A used for motor, ENA for PWM speed)
+> M1 — 12V DC motor
+> J1 — RP4 GPIO header (GPIO23/24 for direction, GPIO25 for PWM enable, GPIO12 for primary RPM, GPIO16 for secondary RPM)
+> J2 — 12V barrel jack power input
+> D1, R1, Q1, R2 — Primary IR sensor (your motor's propeller, feeds RPM1_SENSE)
+> D2, R3, Q2, R4 — Secondary IR sensor (external propeller for match mode, feeds RPM2_SENSE)
+> C1 — 100µF bulk cap on the 12V rail to absorb motor switching spikes
+> C2 — 100nF ceramic decoupling on the L298N's 5V logic output
+> D3 — 1N4007 flyback diode across the motor
+
+> Key design notes:
+
+> IR LED resistor values are calculated in the component fields: (3.3V − 1.2V) / 20mA ≈ 105Ω, rounded up to 150Ω for margin.
+> The phototransistor outputs are active-low — the signal drops when a propeller blade blocks the IR beam, which is what your RP4 code will count for RPM.
+> Direction control uses the IN1/IN2 truth table: IN1=HIGH + IN2=LOW → forward, IN1=LOW + IN2=HIGH → reverse, both LOW → brake.
+
+> Again — the MOSFET warning: Your project spec requires a MOSFET driver. The L298N uses bipolar Darlington pairs. If your instructor flags this, the netlist would need to be reworked with discrete N-channel MOSFETs (like IRLZ44N logic-level FETs) in an H-bridge configuration, or a MOSFET-based driver module. Worth confirming before you build.
             </div>
         </div>
     </div>
-	TEMPLATE END -->
 
 		<!-- CP 1 TEMPLATE
     <div class="interaction-row">

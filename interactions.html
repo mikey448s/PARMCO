@@ -109,11 +109,6 @@
 </head>
 <body>
 
-	<div class="checkpoint-header">
-        <h1 class="checkpoint-title">CHECKPOINT 01</h1>
-        <div class="checkpoint-date">[03/05/2026 - 03/19/2026]</div>
-    </div>
-	
     <div class="checkpoint-header">
         <h1 class="checkpoint-title">CHECKPOINT 02</h1>
         <div class="checkpoint-date">[03/05/2026 - 03/19/2026]</div>
@@ -349,6 +344,33 @@ The Android App Code (Kotlin + Jetpack Compose)
 This code is designed to be pasted entirely into a single file to get your UI up and running immediately.
 
 *MainActivity.kt generated*
+            </div>
+        </div>
+    </div>
+
+    <div class="interaction-row">
+        <div class="panel">
+            <h2>[Left Seat] // Prompt 02</h2>
+            <div class="content-area">
+> Can we make the controls box a bit higher from the bottom of the window but it still expands upwards when more content dense modes are selected? 
+            </div>
+        </div>
+
+        <div class="panel ai-theme">
+            <h2>[Right Seat] // Response 02</h2>
+            <div class="content-area">
+> That is a very easy adjustment in Jetpack Compose! Because of how Compose calculates layout space, we actually already have the "expands upwards" behavior built-in.
+
+Right now, we have a Spacer(modifier = Modifier.weight(1f)) sitting directly below the Top Bar. That spacer acts like a giant, invisible spring that pushes everything below it as far down as possible. When you select a content-dense mode like "Automatic Match", the control box grows, compressing that invisible spring, which makes the box expand upwards.
+
+To lift the whole control box higher off the bottom edge, all we need to do is add a fixed-height Spacer at the very bottom of the screen, underneath the control box. This will prop the box up while keeping that upward-expanding behavior intact.
+
+Here is the updated code. You can replace the entire MainActivity.kt file with this:
+What changed?
+
+    At the very bottom of the main Column (right before the last two closing brackets }), I added Spacer(modifier = Modifier.height(48.dp)). You can easily adjust the 48.dp value up or down depending on exactly how high off the bottom you want it to sit.
+
+    I also updated Divider to HorizontalDivider to keep up with the latest Jetpack Compose best practices (the older Divider is slowly being deprecated in favor of explicit HorizontalDivider and VerticalDivider).
             </div>
         </div>
     </div>

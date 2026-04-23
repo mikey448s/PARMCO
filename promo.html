@@ -190,9 +190,9 @@
 
         <div class="spec-card ai-accent">
             <h3>04 // PRE-COGNITIVE FEEDBACK</h3>
-            <p>A pure PID loop must "guess" its way to a target RPM, resulting in wind-up and oscillation. PARMCO is pre-cognitive.</p>
-            <p>When you command "MAINTAIN 1000 RPM", the C-core executes a 5th-order polynomial transfer function to instantly calculate the baseline duty cycle. The HW-201 IR sensor hardware interrupts then feed true-RPM back to the loop, applying a microscopic ±0.5% proportional trim only if the error escapes a 50-RPM deadband.</p>
-            <span class="code-snippet" style="color: var(--pink)">duty = (5.10e-16 * pow(r, 5)) - ... + 1.95;<br>if (abs(error) > 50) trim += (error * 0.005);</span>
+            <p>A pure PID loop must "guess" its way to a target RPM, resulting in wind-up, stiction-stalls, and oscillation. PARMCO is pre-cognitive.</p>
+            <p>The C-core executes an empirical Quadratic Transfer Function to instantly jump to a calculated baseline duty cycle. Dual HW-201 IR sensor interrupts then feed true-RPM back to the loop. If the motor approaches a stiction stall, an enforced 6.2% minimum duty floor catches it.</p>
+            <span class="code-snippet" style="color: var(--pink)">duty = (0.00000125 * r * r) - (0.0011 * r) + 6.7;<br>if (final_duty < 6.2) final_duty = 6.2; // Stall Floor</span>
         </div>
 
     </div>
